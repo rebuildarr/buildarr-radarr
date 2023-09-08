@@ -1,0 +1,44 @@
+site_name: Buildarr Radarr Plugin
+
+plugins:
+  - search
+  - autorefs
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_root_heading: false
+            show_source: false
+            show_bases: false
+
+markdown_extensions:
+  - toc:
+      permalink: "#"
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
+nav:
+  - Release Notes: release-notes.md
+  - Configuration:
+    - Host Configuration: configuration/host.md
+    - Settings:
+      - Media Management: configuration/settings/media-management.md
+      - Profiles:
+          - Quality Profiles: configuration/settings/profiles/quality-profiles.md
+          - Delay Profiles: configuration/settings/profiles/delay-profiles.md
+      - Quality: configuration/settings/quality.md
+      - Custom Formats: configuration/settings/custom-formats.md
+      - Indexers: configuration/settings/indexers.md
+      - Download Clients: configuration/settings/download-clients.md
+      - Notifications (Connect): configuration/settings/notifications.md
+      - Metadata: configuration/settings/metadata.md
+      - Tags: configuration/settings/tags.md
+      - General: configuration/settings/general.md
+      - UI: configuration/settings/ui.md
+  - Buildarr: https://buildarr.github.io
+  - GitHub: https://github.com/buildarr/buildarr-radarr
+
+watch:
+  - buildarr_radarr

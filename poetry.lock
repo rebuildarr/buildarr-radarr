@@ -802,13 +802,13 @@ pyyaml = "*"
 
 [[package]]
 name = "radarr-py"
-version = "0.3.1"
+version = "0.4.0"
 description = "Radarr API wrapper"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "radarr-py-0.3.1.tar.gz", hash = "sha256:842d0b31377e7dd9f7e8f0f382be2e78d26c83c56394f4deb6c7c9f39ee1a8d4"},
-    {file = "radarr_py-0.3.1-py3-none-any.whl", hash = "sha256:d9d7de210663384de1263c4111e4c8da19fb14154efc909fd079a887f272dc45"},
+    {file = "radarr-py-0.4.0.tar.gz", hash = "sha256:cfe264bfe61e42b1475d1bb30b09e701b5b5e50ef16ccc9e7707f50f49d9eb6b"},
+    {file = "radarr_py-0.4.0-py3-none-any.whl", hash = "sha256:63c4cfebf0de9a0457f68effc17776621d8d4329917e9b9b589b7c19439355f1"},
 ]
 
 [package.dependencies]
@@ -1027,4 +1027,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "efd99f0b6aef65aca2dbd648b7b90fe0266539eaac8ab612c6709b94b51daa72"
+content-hash = "ca03936376a9888c21f2ddef03916f36af41f1fa2423d3d95f4e2eea1191927c"

@@ -20,8 +20,7 @@ Plugin secrets file model.
 from __future__ import annotations
 
 from http import HTTPStatus
-from typing import TYPE_CHECKING
-from urllib.parse import urlparse
+from typing import TYPE_CHECKING, cast
 
 import radarr
 
@@ -56,64 +55,54 @@ class RadarrSecrets(_RadarrSecrets):
     port: Port
     protocol: RadarrProtocol
     api_key: ArrApiKey
+    version: NonEmptyStr
 
     @property
     def host_url(self) -> str:
         return f"{self.protocol}://{self.hostname}:{self.port}"
 
     @classmethod
-    def from_url(cls, base_url: str, api_key: str) -> Self:
-        url_obj = urlparse(base_url)
-        hostname_port = url_obj.netloc.rsplit(":", 1)
-        hostname = hostname_port[0]
-        protocol = url_obj.scheme
-        port = (
-            int(hostname_port[1])
-            if len(hostname_port) > 1
-            else (443 if protocol == "https" else 80)
-        )
-        return cls(
-            **{  # type: ignore[arg-type]
-                "hostname": hostname,
-                "port": port,
-                "protocol": protocol,
-                "api_key": api_key,
-            },
-        )
-
-    @classmethod
     def get(cls, config: RadarrConfig) -> Self:
         if config.api_key:
-            api_key = config.api_key
+            api_key = config.api_key.get_secret_value()
         else:
             try:
-                api_key = api_get(config.host_url, "/initialize.json")["apiKey"]
+                initialize_json = api_get(config.host_url, "/initialize.json")
             except RadarrAPIError as err:
                 if err.status_code == HTTPStatus.UNAUTHORIZED:
                     raise RadarrSecretsUnauthorizedError(
-                        "Unable to retrieve the API key for the Radarr instance "
-                        f"at '{config.host_url}': Authentication is enabled. "
-                        "Please try manually setting the "
-                        "'Settings -> General -> Authentication Required' attribute "
-                        "to 'Disabled for Local Addresses', or if that does not work, "
-                        "explicitly define the API key in the Buildarr configuration.",
+                        (
+                            "Unable to retrieve the API key for the Radarr instance "
+                            f"at '{config.host_url}': Authentication is enabled. "
+                            "Please try manually setting the "
+                            "'Settings -> General -> Authentication Required' attribute "
+                            "to 'Disabled for Local Addresses', or if that does not work, "
+                            "explicitly define the API key in the Buildarr configuration."
+                        ),
                     ) from None
                 else:
                     raise
-            # TODO: Switch to `radarr.InitializeJsApi.get_initialize_js` when fixed.
-            # with radarr_api_client(host_url=config.host_url) as api_client:
-            #     api_key = radarr.InitializeJsApi(api_client).get_initialize_js().api_key
+            else:
+                api_key = initialize_json["apiKey"]
+        try:
+            with radarr_api_client(host_url=config.host_url, api_key=api_key) as api_client:
+                system_status = radarr.SystemApi(api_client).get_system_status()
+        except UnauthorizedException:
+            raise RadarrSecretsUnauthorizedError(
+                (
+                    f"Incorrect API key for the Radarr instance at '{config.host_url}'. "
+                    "Please check that the API key is set correctly in the Buildarr "
+                    "configuration, and that it is set to the value as shown in "
+                    "'Settings -> General -> API Key' on the Radarr instance."
+                ),
+            ) from None
         return cls(
             hostname=config.hostname,
             port=config.port,
             protocol=config.protocol,
-            api_key=api_key,
+            api_key=cast(ArrApiKey, api_key),
+            version=system_status.version,
         )
 
     def test(self) -> bool:
-        with radarr_api_client(secrets=self) as api_client:
-            try:
-                radarr.SystemApi(api_client).get_system_status()
-            except UnauthorizedException:
-                return False
         return True

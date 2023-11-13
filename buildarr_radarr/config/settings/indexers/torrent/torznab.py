@@ -19,11 +19,11 @@ Torznab indexer configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal, Optional, Set
+from typing import Iterable, List, Literal, Optional, Set, Union
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import NonEmptyStr, Password
-from pydantic import AnyHttpUrl
+from pydantic import AnyHttpUrl, validator
 
 from ..util import NabCategory
 from .base import TorrentIndexer
@@ -52,7 +52,7 @@ class TorznabIndexer(TorrentIndexer):
     API key for use with the Torznab API.
     """
 
-    categories: Set[NabCategory] = {
+    categories: Set[Union[NabCategory, int]] = {
         NabCategory.MOVIES_FOREIGN,
         NabCategory.MOVIES_OTHER,
         NabCategory.MOVIES_SD,
@@ -68,13 +68,16 @@ class TorznabIndexer(TorrentIndexer):
     Values:
 
     * `Movies`
-    * `Movies-Foreign`
-    * `Movies-Other`
-    * `Movies-SD`
-    * `Movies-HD`
-    * `Movies-UHD`
-    * `Movies-Bluray`
-    * `Movies-3D`
+    * `Movies/Foreign`
+    * `Movies/Other`
+    * `Movies/SD`
+    * `Movies/HD`
+    * `Movies/UHD`
+    * `Movies/BluRay`
+    * `Movies/3D`
+    * `Movies/DVD`
+    * `Movies/WEB-DL`
+    * `Movies/x265`
     """
 
     remove_year: bool = False
@@ -92,10 +95,25 @@ class TorznabIndexer(TorrentIndexer):
         ("base_url", "baseUrl", {"is_field": True}),
         ("api_path", "apiPath", {"is_field": True}),
         ("api_key", "apiKey", {"is_field": True}),
-        ("categories", "categories", {"is_field": True}),
+        (
+            "categories",
+            "categories",
+            {"is_field": True, "encoder": lambda v: sorted(NabCategory.encode(c) for c in v)},
+        ),
+        ("remove_year", "removeYear", {"is_field": True}),
         (
             "additional_parameters",
             "additionalParameters",
             {"is_field": True, "field_default": None, "decoder": lambda v: v or None},
         ),
     ]
+
+    @validator("categories")
+    def validate_categories(
+        cls,
+        value: Iterable[Union[NabCategory, int]],
+    ) -> Set[Union[NabCategory, int]]:
+        return set(
+            NabCategory.decode(category) if isinstance(category, int) else category
+            for category in value
+        )

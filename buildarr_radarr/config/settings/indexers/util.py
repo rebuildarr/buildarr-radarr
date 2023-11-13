@@ -20,28 +20,39 @@ Indexer configuration utility classes and functions.
 from __future__ import annotations
 
 from logging import getLogger
+from typing import TYPE_CHECKING, cast
 
 from buildarr.types import BaseEnum
+
+if TYPE_CHECKING:
+    from typing import Union
+
+    from typing_extensions import Self
 
 logger = getLogger(__name__)
 
 
 class NabCategory(BaseEnum):
-    MOVIES = 2000
-    MOVIES_FOREIGN = 2010
-    MOVIES_OTHER = 2020
-    MOVIES_SD = 2030
-    MOVIES_HD = 2040
-    MOVIES_UHD = 2045
-    MOVIES_BLURAY = 2050
-    MOVIES_3D = 2060
-    MOVIES_DVD = 2070
+    # https://github.com/Prowlarr/Prowlarr/blob/develop/src/NzbDrone.Core/Indexers/NewznabStandardCategory.cs
+    MOVIES = (2000, "Movies")
+    MOVIES_FOREIGN = (2010, "Movies/Foreign")
+    MOVIES_OTHER = (2020, "Movies/Other")
+    MOVIES_SD = (2030, "Movies/SD")
+    MOVIES_HD = (2040, "Movies/HD")
+    MOVIES_UHD = (2045, "Movies/UHD")
+    MOVIES_BLURAY = (2050, "Movies/BluRay")
+    MOVIES_3D = (2060, "Movies/3D")
+    MOVIES_DVD = (2070, "Movies/DVD")
+    MOVIES_WEBDL = (2080, "Movies/WEB-DL")
+    MOVIES_X265 = (2090, "Movies/x265")
 
-    # TODO: Make the enum also accept these values.
-    # MOVIES_FOREIGN = "Movies/Foreign"
-    # MOVIES_OTHER = "Movies/Other"
-    # MOVIES_SD = "Movies/SD"
-    # MOVIES_HD = "Movies/HD"
-    # MOVIES_UHD = "Movies/UHD"
-    # MOVIES_3D = "Movies/3D"
-    # MOVIES_DVD = "Movies/DVD"
+    @classmethod
+    def decode(cls, value: int) -> Union[Self, int]:
+        try:
+            return cls(value)
+        except ValueError:
+            return value
+
+    @classmethod
+    def encode(cls, value: Union[Self, int]) -> int:
+        return value if isinstance(value, int) else cast(int, value.value)

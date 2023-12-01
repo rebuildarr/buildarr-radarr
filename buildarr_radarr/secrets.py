@@ -20,12 +20,13 @@ Plugin secrets file model.
 from __future__ import annotations
 
 from http import HTTPStatus
-from typing import TYPE_CHECKING, cast
+from typing import TYPE_CHECKING, Optional, cast
 
 import radarr
 
 from buildarr.secrets import SecretsPlugin
 from buildarr.types import NonEmptyStr, Port
+from pydantic import validator
 from radarr.exceptions import UnauthorizedException
 
 from .api import api_get, radarr_api_client
@@ -33,8 +34,6 @@ from .exceptions import RadarrAPIError, RadarrSecretsUnauthorizedError
 from .types import ArrApiKey, RadarrProtocol
 
 if TYPE_CHECKING:
-    from typing import Optional
-
     from typing_extensions import Self
 
     from .config import RadarrConfig
@@ -56,12 +55,32 @@ class RadarrSecrets(_RadarrSecrets):
     hostname: NonEmptyStr
     port: Port
     protocol: RadarrProtocol
+    url_base: Optional[str]
     api_key: ArrApiKey
     version: NonEmptyStr
 
     @property
     def host_url(self) -> str:
-        return f"{self.protocol}://{self.hostname}:{self.port}"
+        return self._get_host_url(
+            protocol=self.protocol,
+            hostname=self.hostname,
+            port=self.port,
+            url_base=self.url_base,
+        )
+
+    @validator("url_base")
+    def validate_url_base(cls, value: Optional[str]) -> Optional[str]:
+        return f"/{value.strip('/')}" if value and value.strip("/") else None
+
+    @classmethod
+    def _get_host_url(
+        cls,
+        protocol: str,
+        hostname: str,
+        port: int,
+        url_base: Optional[str],
+    ) -> str:
+        return f"{protocol}://{hostname}:{port}{url_base or ''}"
 
     @classmethod
     def get(cls, config: RadarrConfig) -> Self:
@@ -69,6 +88,7 @@ class RadarrSecrets(_RadarrSecrets):
             hostname=config.hostname,
             port=config.port,
             protocol=config.protocol,
+            url_base=config.url_base,
             api_key=config.api_key.get_secret_value() if config.api_key else None,
         )
 
@@ -78,9 +98,16 @@ class RadarrSecrets(_RadarrSecrets):
         hostname: str,
         port: int,
         protocol: str,
+        url_base: Optional[str] = None,
         api_key: Optional[str] = None,
     ) -> Self:
-        host_url = f"{protocol}://{hostname}:{port}"
+        url_base = cls.validate_url_base(url_base)
+        host_url = cls._get_host_url(
+            protocol=protocol,
+            hostname=hostname,
+            port=port,
+            url_base=url_base,
+        )
         if not api_key:
             try:
                 initialize_json = api_get(host_url, "/initialize.json")
@@ -116,6 +143,7 @@ class RadarrSecrets(_RadarrSecrets):
             hostname=cast(NonEmptyStr, hostname),
             port=cast(Port, port),
             protocol=cast(RadarrProtocol, protocol),
+            url_base=url_base,
             api_key=cast(ArrApiKey, api_key),
             version=system_status.version,
         )

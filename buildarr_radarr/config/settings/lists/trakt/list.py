@@ -19,7 +19,7 @@ Trakt list import list configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal
+from typing import ClassVar, List, Literal
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import NonEmptyStr
@@ -44,5 +44,5 @@ class TraktListImportList(TraktImportList):
     The list must be public, or you must have access to the list.
     """
 
-    _implementation: str = "TraktListImport"
-    _remote_map: List[RemoteMapEntry] = [("list_name", "listName", {"is_field": True})]
+    _implementation: ClassVar[str] = "TraktListImport"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [("list_name", "listName", {"is_field": True})]

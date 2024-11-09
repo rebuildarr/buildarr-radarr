@@ -19,7 +19,7 @@ Torrent RSS feed indexer configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal, Optional
+from typing import ClassVar, List, Literal, Optional
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import RssUrl
@@ -61,8 +61,8 @@ class TorrentRssIndexer(TorrentIndexer):
     As size checks will not be performed, be careful when enabling this option.
     """
 
-    _implementation = "TorrentRssIndexer"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "TorrentRssIndexer"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("full_rss_feed_url", "feedUrl", {"is_field": True}),
         (
             "cookie",

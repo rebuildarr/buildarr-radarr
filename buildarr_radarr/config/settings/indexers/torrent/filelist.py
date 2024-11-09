@@ -19,7 +19,7 @@ FileList.io indexer configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal, Set
+from typing import ClassVar, List, Literal, Set
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import BaseEnum, NonEmptyStr, Password
@@ -92,8 +92,8 @@ class FilelistIndexer(TorrentIndexer):
     * `XXX`
     """
 
-    _implementation = "FileList"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "FileList"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("base_url", "baseUrl", {"is_field": True}),
         ("username", "username", {"is_field": True}),
         ("passkey", "passKey", {"is_field": True}),

@@ -19,7 +19,7 @@ Hadouken download client configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal, Optional
+from typing import ClassVar, List, Literal, Optional
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import NonEmptyStr, Password, Port
@@ -73,8 +73,8 @@ class HadoukenDownloadClient(TorrentDownloadClient):
     Using a category is optional, but strongly recommended.
     """
 
-    _implementation: str = "Hadouken"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Hadouken"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("hostname", "host", {"is_field": True}),
         ("port", "port", {"is_field": True}),
         ("use_ssl", "useSsl", {"is_field": True}),

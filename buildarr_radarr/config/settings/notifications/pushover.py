@@ -19,11 +19,12 @@ Pushover notification connection configuration.
 
 from __future__ import annotations
 
-from typing import Any, List, Literal, Mapping, Optional, Set, Union
+from typing import Any, ClassVar, List, Literal, Mapping, Optional, Set, Union
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import BaseEnum, NonEmptyStr, Password
-from pydantic import ConstrainedInt, Field, SecretStr, validator
+from pydantic import Field, SecretStr, validator
+from typing_extensions import Annotated
 
 from .base import Notification
 
@@ -41,8 +42,7 @@ class PushoverPriority(BaseEnum):
     emergency = 2
 
 
-class PushoverRetry(ConstrainedInt):
-    ge = 30
+PushoverRetry = Annotated[int, Field(ge=30)]
 
 
 class PushoverNotification(Notification):
@@ -119,8 +119,8 @@ class PushoverNotification(Notification):
             )
         return value
 
-    _implementation: str = "Pushover"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Pushover"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("user_key", "userKey", {"is_field": True}),
         ("api_key", "apiKey", {"is_field": True}),
         ("devices", "devices", {"is_field": True, "encoder": lambda v: sorted(v)}),

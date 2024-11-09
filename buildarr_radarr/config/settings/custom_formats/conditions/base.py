@@ -19,7 +19,7 @@ Custom format condition base class.
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Tuple
+from typing import Any, ClassVar, Dict, List, Tuple
 
 import radarr
 
@@ -51,12 +51,12 @@ class Condition(RadarrConfigBase):
     if any one of the defined conditions match.
     """
 
-    _implementation: str
-    _base_remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str]
+    _base_remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("negate", "negate", {}),
         ("required", "required", {}),
     ]
-    _remote_map: List[RemoteMapEntry] = []
+    _remote_map: ClassVar[List[RemoteMapEntry]] = []
 
     @classmethod
     def _get_remote_map(cls, api_schema_dict: Dict[str, Any]) -> List[RemoteMapEntry]:

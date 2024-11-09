@@ -19,7 +19,7 @@ SendGrid notification connection configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal
+from typing import ClassVar, List, Literal
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import Password
@@ -52,15 +52,18 @@ class SendgridNotification(Notification):
     e.g. `Radarr <radarr@example.com>`.
     """
 
-    recipient_addresses: Annotated[List[NameEmail], Field(min_items=1, unique_items=True)]
+    recipient_addresses: Annotated[
+        List[NameEmail],
+        Field(min_items=1, json_schema_extra={"uniqueItems": True}),
+    ]
     """
     The recipient email addresses of the notification mail.
 
     At least one recipient address is required.
     """
 
-    _implementation: str = "SendGrid"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "SendGrid"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("api_key", "apiKey", {"is_field": True}),
         ("from_address", "from", {"is_field": True}),
         ("recipient_addresses", "recipients", {"is_field": True}),

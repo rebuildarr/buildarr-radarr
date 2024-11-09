@@ -20,7 +20,7 @@ NZBGet download client configuration.
 from __future__ import annotations
 
 from logging import getLogger
-from typing import List, Literal, Optional
+from typing import ClassVar, List, Literal, Optional
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import BaseEnum, NonEmptyStr, Password, Port
@@ -120,8 +120,8 @@ class NzbgetDownloadClient(UsenetDownloadClient):
     This option requires NZBGet version 16.0 or later.
     """
 
-    _implementation: str = "Nzbget"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Nzbget"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("hostname", "host", {"is_field": True}),
         ("port", "port", {"is_field": True}),
         ("use_ssl", "useSsl", {"is_field": True}),

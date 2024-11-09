@@ -19,7 +19,7 @@ Torznab indexer configuration.
 
 from __future__ import annotations
 
-from typing import Iterable, List, Literal, Optional, Set, Union
+from typing import ClassVar, Iterable, List, Literal, Optional, Set, Union
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import NonEmptyStr, Password
@@ -94,8 +94,8 @@ class TorznabIndexer(TorrentIndexer):
     Additional Torznab API parameters.
     """
 
-    _implementation = "Torznab"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Torznab"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("base_url", "baseUrl", {"is_field": True}),
         ("api_path", "apiPath", {"is_field": True}),
         ("api_key", "apiKey", {"is_field": True}),

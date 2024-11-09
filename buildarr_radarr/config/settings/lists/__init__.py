@@ -20,7 +20,7 @@ Radarr plugin import list settings configuration.
 from __future__ import annotations
 
 from logging import getLogger
-from typing import Dict, List, Union
+from typing import ClassVar, Dict, List, Union
 
 import radarr
 
@@ -43,7 +43,7 @@ from .trakt.user import TraktUserImportList
 logger = getLogger(__name__)
 
 IMPORTLIST_TYPE_MAP = {
-    importlist_type._implementation: importlist_type  # type: ignore[attr-defined]
+    str(importlist_type._implementation): importlist_type  # type: ignore[attr-defined]
     for importlist_type in (
         CouchpotatoImportList,
         RadarrImportList,
@@ -134,7 +134,7 @@ class RadarrListsSettings(RadarrConfigBase):
     exclusions: ListExclusionsSettings = ListExclusionsSettings()
     """ """
 
-    delete_unmanaged: bool = False
+    delete_unmanaged: Annotated[bool, Field] = False
     """
     Automatically delete import lists not defined in Buildarr.
     """
@@ -144,7 +144,7 @@ class RadarrListsSettings(RadarrConfigBase):
     Import list definitions go here.
     """
 
-    _remote_map: List[RemoteMapEntry] = [("clean_library_level", "listSyncLevel", {})]
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [("clean_library_level", "listSyncLevel", {})]
 
     @classmethod
     def from_remote(cls, secrets: RadarrSecrets) -> Self:

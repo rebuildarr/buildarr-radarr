@@ -19,7 +19,7 @@ Custom format condition for matching based on media file size.
 
 from __future__ import annotations
 
-from typing import Any, List, Literal, Mapping
+from typing import Any, ClassVar, List, Literal, Mapping
 
 from buildarr.config import RemoteMapEntry
 from pydantic import Field, validator
@@ -49,8 +49,8 @@ class SizeCondition(Condition):
     In order to match, the media must be smaller than, or equal to, this size.
     """
 
-    _implementation: Literal["SizeSpecification"] = "SizeSpecification"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[Literal["SizeSpecification"]] = "SizeSpecification"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("min", "min", {"is_field": True}),
         ("max", "max", {"is_field": True}),
     ]

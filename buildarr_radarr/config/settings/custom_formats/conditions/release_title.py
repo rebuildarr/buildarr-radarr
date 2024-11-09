@@ -19,7 +19,7 @@ Custom format condition for matching based on release title contents.
 
 from __future__ import annotations
 
-from typing import List, Literal, Optional
+from typing import ClassVar, List, Literal, Optional
 
 from buildarr.config import RemoteMapEntry
 
@@ -45,8 +45,8 @@ class ReleaseTitleCondition(Condition):
     # preset: Optional[str] = None
     # """Template preset from the Radarr API."""
 
-    _implementation: Literal["ReleaseTitleSpecification"] = "ReleaseTitleSpecification"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[Literal["ReleaseTitleSpecification"]] = "ReleaseTitleSpecification"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         (
             "regex",
             "value",

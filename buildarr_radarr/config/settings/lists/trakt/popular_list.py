@@ -19,7 +19,7 @@ Trakt popular list import list configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal
+from typing import ClassVar, List, Literal
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import BaseEnum
@@ -74,5 +74,7 @@ class TraktPopularListImportList(TraktImportList):
     * `recommended_by_alltime`
     """
 
-    _implementation: str = "TraktPopularImport"
-    _remote_map: List[RemoteMapEntry] = [("list_type", "traktListType", {"is_field": True})]
+    _implementation: ClassVar[str] = "TraktPopularImport"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
+        ("list_type", "traktListType", {"is_field": True}),
+    ]

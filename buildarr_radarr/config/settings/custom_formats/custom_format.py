@@ -22,7 +22,7 @@ from __future__ import annotations
 import json
 
 from logging import getLogger
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, ClassVar, Dict, List, Optional, Union, cast
 
 import radarr
 
@@ -61,7 +61,7 @@ ConditionType = Union[
 ]
 
 CONDITION_TYPE_MAP = {
-    condition_type._implementation: condition_type  # type: ignore[attr-defined]
+    str(condition_type._implementation): condition_type  # type: ignore[attr-defined]
     for condition_type in (
         EditionCondition,
         IndexerFlagCondition,
@@ -134,7 +134,7 @@ class CustomFormat(RadarrConfigBase):
 
     # TODO: Validate conditions not empty if `trash_id` is not defined.
 
-    _remote_map: List[RemoteMapEntry] = [
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("include_when_renaming", "includeCustomFormatWhenRenaming", {}),
     ]
 

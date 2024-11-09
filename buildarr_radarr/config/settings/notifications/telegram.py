@@ -19,7 +19,7 @@ Telegram notification connection configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal
+from typing import ClassVar, List, Literal
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import NonEmptyStr, Password
@@ -54,8 +54,8 @@ class TelegramNotification(Notification):
     Sends the message silently. Users will receive a notification with no sound.
     """
 
-    _implementation: str = "Telegram"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Telegram"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("bot_token", "botToken", {"is_field": True}),
         ("chat_id", "chatId", {"is_field": True}),
         ("send_silently", "sendSilently", {"is_field": True}),

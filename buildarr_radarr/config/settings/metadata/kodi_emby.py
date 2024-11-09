@@ -19,7 +19,7 @@ Kodi (XBMC) / Emby metadata configuration.
 
 from __future__ import annotations
 
-from typing import List, cast
+from typing import ClassVar, List, cast
 
 import radarr
 
@@ -71,7 +71,7 @@ class KodiEmbyMetadata(Metadata):
     Write the collection name to the movie metadata.
     """
 
-    _implementation: str = "XbmcMetadata"
+    _implementation: ClassVar[str] = "XbmcMetadata"
 
     @validator("movie_metadata_language")
     def validate_movie_metadata_language(cls, value: str) -> str:

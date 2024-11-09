@@ -19,7 +19,7 @@ HDBits indexer configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal, Set
+from typing import ClassVar, List, Literal, Set
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import BaseEnum, NonEmptyStr, Password
@@ -129,8 +129,8 @@ class HdbitsIndexer(TorrentIndexer):
     * `WebDl`
     """
 
-    _implementation = "HDBits"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "HDBits"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("base_url", "baseUrl", {"is_field": True}),
         ("username", "username", {"is_field": True}),
         ("api_key", "apiKey", {"is_field": True}),

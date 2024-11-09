@@ -19,7 +19,7 @@ Boxcar notification connection configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal
+from typing import ClassVar, List, Literal
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import Password
@@ -42,5 +42,5 @@ class BoxcarNotification(Notification):
     Access token for authenticating with Boxcar.
     """
 
-    _implementation: str = "Boxcar"
-    _remote_map: List[RemoteMapEntry] = [("access_token", "token", {"is_field": True})]
+    _implementation: ClassVar[str] = "Boxcar"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [("access_token", "token", {"is_field": True})]

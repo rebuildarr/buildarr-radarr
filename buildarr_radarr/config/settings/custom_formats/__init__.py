@@ -24,7 +24,8 @@ from typing import Any, Dict
 
 import radarr
 
-from typing_extensions import Self
+from pydantic import Field
+from typing_extensions import Annotated, Self
 
 from ....api import api_get, radarr_api_client
 from ....secrets import RadarrSecrets
@@ -37,7 +38,7 @@ logger = getLogger(__name__)
 class RadarrCustomFormatsSettings(RadarrConfigBase):
     # Custom format settings configuration.
 
-    delete_unmanaged: bool = False
+    delete_unmanaged: Annotated[bool, Field] = False
     """
     Automatically delete custom formats not defined in Buildarr.
     """

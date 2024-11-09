@@ -19,7 +19,7 @@ Discord notification connection configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal, Optional, Set
+from typing import ClassVar, List, Literal, Optional, Set
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import BaseEnum
@@ -225,8 +225,8 @@ class DiscordNotification(Notification):
         OnManualInteractionField.fanart,
     }
 
-    _implementation: str = "Discord"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Discord"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("webhook_url", "webHookUrl", {"is_field": True}),
         (
             "username",

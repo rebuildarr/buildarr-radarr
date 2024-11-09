@@ -19,7 +19,7 @@ Trakt user import list configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal
+from typing import ClassVar, List, Literal
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import BaseEnum
@@ -58,5 +58,7 @@ class TraktUserImportList(TraktImportList):
     * `user_collection_list`
     """
 
-    _implementation: str = "TraktUserImport"
-    _remote_map: List[RemoteMapEntry] = [("list_type", "traktListType", {"is_field": True})]
+    _implementation: ClassVar[str] = "TraktUserImport"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
+        ("list_type", "traktListType", {"is_field": True}),
+    ]

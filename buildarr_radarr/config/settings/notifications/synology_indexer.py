@@ -19,7 +19,7 @@ SynologyIndexer notification connection configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal
+from typing import ClassVar, List, Literal
 
 from buildarr.config import RemoteMapEntry
 
@@ -41,5 +41,7 @@ class SynologyIndexerNotification(Notification):
     Call `synoindex` on `localhost` to update library files.
     """
 
-    _implementation: str = "MediaBrowser"
-    _remote_map: List[RemoteMapEntry] = [("update_library", "updateLibrary", {"is_field": True})]
+    _implementation: ClassVar[str] = "MediaBrowser"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
+        ("update_library", "updateLibrary", {"is_field": True}),
+    ]

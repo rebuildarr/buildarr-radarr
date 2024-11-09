@@ -19,7 +19,7 @@ Signal notification connection configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal
+from typing import ClassVar, List, Literal
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import NonEmptyStr, Password, Port
@@ -72,8 +72,8 @@ class SignalNotification(Notification):
     Signal API auth password.
     """
 
-    _implementation: str = "Signal"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Signal"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("hostname", "host", {"is_field": True}),
         ("port", "port", {"is_field": True}),
         ("use_ssl", "useSsl", {"is_field": True}),

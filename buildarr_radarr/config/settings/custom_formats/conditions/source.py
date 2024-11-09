@@ -19,7 +19,7 @@ Custom format condition for matching based on media source type.
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Literal, cast
+from typing import Any, ClassVar, Dict, List, Literal, cast
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import UpperCaseNonEmptyStr
@@ -54,7 +54,7 @@ class SourceCondition(Condition):
     * `BLURAY`
     """
 
-    _implementation: Literal["SourceSpecification"] = "SourceSpecification"
+    _implementation: ClassVar[Literal["SourceSpecification"]] = "SourceSpecification"
 
     @classmethod
     def _get_remote_map(cls, api_schema_dict: Dict[str, Any]) -> List[RemoteMapEntry]:

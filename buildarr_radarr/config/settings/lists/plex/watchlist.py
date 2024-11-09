@@ -19,7 +19,7 @@ Plex watchlist import list configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal
+from typing import ClassVar, List, Literal
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import Password
@@ -46,7 +46,9 @@ class PlexWatchlistImportList(PlexImportList):
     [PATH]: https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token
     """
 
-    _implementation_name: str = "Plex Watchlist"
-    _implementation: str = "PlexImport"
-    _config_contract: str = "PlexListSettings"
-    _remote_map: List[RemoteMapEntry] = [("access_token", "accessToken", {"is_field": True})]
+    _implementation_name: ClassVar[str] = "Plex Watchlist"
+    _implementation: ClassVar[str] = "PlexImport"
+    _config_contract: ClassVar[str] = "PlexListSettings"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
+        ("access_token", "accessToken", {"is_field": True}),
+    ]

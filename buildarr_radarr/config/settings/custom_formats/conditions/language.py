@@ -19,7 +19,7 @@ Custom format condition for matching based on media language.
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Literal, cast
+from typing import Any, ClassVar, Dict, List, Literal, cast
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import NonEmptyStr
@@ -53,7 +53,7 @@ class LanguageCondition(Condition):
     * `portuguese-brazil`
     """
 
-    _implementation: Literal["LanguageSpecification"] = "LanguageSpecification"
+    _implementation: ClassVar[Literal["LanguageSpecification"]] = "LanguageSpecification"
 
     @validator("language")
     def validate_language(cls, value: str) -> str:

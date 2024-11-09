@@ -20,7 +20,7 @@ General settings configuration.
 from __future__ import annotations
 
 from ipaddress import IPv4Address
-from typing import Any, Dict, List, Literal, Mapping, Optional, Set, Tuple, Union
+from typing import Any, ClassVar, Dict, List, Literal, Mapping, Optional, Set, Tuple, Union
 
 import radarr
 
@@ -74,9 +74,9 @@ class UpdateMechanism(BaseEnum):
 
 
 class GeneralSettings(RadarrConfigBase):
-    _remote_map: List[RemoteMapEntry]
-    _v4_remote_map: List[RemoteMapEntry] = []
-    _v5_remote_map: List[RemoteMapEntry] = []
+    _remote_map: ClassVar[List[RemoteMapEntry]]
+    _v4_remote_map: ClassVar[List[RemoteMapEntry]] = []
+    _v5_remote_map: ClassVar[List[RemoteMapEntry]] = []
 
     @classmethod
     def _from_remote(cls, secrets: RadarrSecrets, remote_attrs: Mapping[str, Any]) -> Self:
@@ -193,7 +193,7 @@ class HostGeneralSettings(GeneralSettings):
     Instance name in the browser tab and in syslog.
     """
 
-    _remote_map: List[RemoteMapEntry] = [
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("bind_address", "bindAddress", {}),
         ("port", "port", {}),
         ("ssl_port", "sslPort", {}),
@@ -285,7 +285,7 @@ class SecurityGeneralSettings(GeneralSettings):
     * `disabled` - Disable HTTPS certificate validation completely
     """
 
-    _remote_map: List[RemoteMapEntry] = [
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("authentication", "authenticationMethod", {}),
         (
             "username",
@@ -316,7 +316,7 @@ class SecurityGeneralSettings(GeneralSettings):
         ("certificate_validation", "certificateValidation", {}),
     ]
 
-    _v5_remote_map: List[RemoteMapEntry] = [
+    _v5_remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("authentication_required", "authenticationRequired", {}),
     ]
 
@@ -377,7 +377,7 @@ class ProxyGeneralSettings(GeneralSettings):
     Do not use the proxy to access local network addresses.
     """
 
-    _remote_map: List[RemoteMapEntry] = [
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("enable", "proxyEnabled", {}),
         ("proxy_type", "proxyType", {}),
         (
@@ -429,7 +429,7 @@ class LoggingGeneralSettings(GeneralSettings):
     * `TRACE` - Trace diagnostics log output
     """
 
-    _remote_map: List[RemoteMapEntry] = [("log_level", "logLevel", {})]
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [("log_level", "logLevel", {})]
 
 
 class AnalyticsGeneralSettings(GeneralSettings):
@@ -448,7 +448,9 @@ class AnalyticsGeneralSettings(GeneralSettings):
     Requires a restart of Radarr to take effect.
     """
 
-    _remote_map: List[RemoteMapEntry] = [("send_anonymous_usage_data", "analyticsEnabled", {})]
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
+        ("send_anonymous_usage_data", "analyticsEnabled", {}),
+    ]
 
 
 class UpdatesGeneralSettings(GeneralSettings):
@@ -497,7 +499,7 @@ class UpdatesGeneralSettings(GeneralSettings):
     Required if `mechanism` is set to `script`.
     """
 
-    _remote_map: List[RemoteMapEntry] = [
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("branch", "branch", {}),
         ("automatic", "updateAutomatically", {}),
         ("mechanism", "updateMechanism", {}),
@@ -536,7 +538,7 @@ class BackupGeneralSettings(GeneralSettings):
     Must be set somewhere between 1 and 90 days.
     """
 
-    _remote_map: List[RemoteMapEntry] = [
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("folder", "backupFolder", {}),
         ("interval", "backupInterval", {}),
         ("retention", "backupRetention", {}),

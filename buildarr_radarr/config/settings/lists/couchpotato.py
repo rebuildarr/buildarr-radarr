@@ -19,7 +19,7 @@ CouchPotato import list configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal, Optional
+from typing import ClassVar, List, Literal, Optional
 from urllib.parse import urlparse
 
 from buildarr.config import RemoteMapEntry
@@ -56,8 +56,8 @@ class CouchpotatoImportList(ImportList):
     Only add wanted movies.
     """
 
-    _implementation: Literal["CouchPotatoImport"] = "CouchPotatoImport"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[Literal["CouchPotatoImport"]] = "CouchPotatoImport"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         (
             "host",
             "link",

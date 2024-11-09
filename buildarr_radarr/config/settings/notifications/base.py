@@ -20,7 +20,7 @@ Notification connection configuration base class.
 from __future__ import annotations
 
 from logging import getLogger
-from typing import Any, Dict, List, Mapping, Set
+from typing import Any, ClassVar, Dict, List, Mapping, Set
 
 import radarr
 
@@ -103,7 +103,7 @@ class NotificationTriggers(RadarrConfigBase):
     Notify when manual interaction is required to resolve an issue.
     """
 
-    _remote_map: List[RemoteMapEntry] = [
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("on_grab", "onGrab", {}),
         ("on_import", "onDownload", {}),
         ("on_upgrade", "onUpgrade", {}),
@@ -136,8 +136,8 @@ class Notification(RadarrConfigBase):
     Radarr tags to associate this notification connection with.
     """
 
-    _implementation: str
-    _remote_map: List[RemoteMapEntry]
+    _implementation: ClassVar[str]
+    _remote_map: ClassVar[List[RemoteMapEntry]]
 
     @classmethod
     def _get_base_remote_map(

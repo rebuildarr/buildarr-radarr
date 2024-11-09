@@ -19,7 +19,7 @@ Torrent Blackhole download client configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal
+from typing import ClassVar, List, Literal
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import NonEmptyStr
@@ -65,8 +65,8 @@ class TorrentBlackholeDownloadClient(TorrentDownloadClient):
     To allow torrents to continue seeding after download, this should be enabled.
     """
 
-    _implementation: str = "TorrentBlackhole"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "TorrentBlackhole"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("torrent_folder", "torrentFolder", {"is_field": True}),
         ("watch_folder", "watchFolder", {"is_field": True}),
         ("save_magnet_files", "saveMagnetFiles", {"is_field": True}),

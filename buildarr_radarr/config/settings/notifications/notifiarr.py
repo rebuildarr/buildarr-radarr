@@ -19,7 +19,7 @@ Notifiarr notification connection configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal
+from typing import ClassVar, List, Literal
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import Password
@@ -42,5 +42,5 @@ class NotifiarrNotification(Notification):
     API key to use to authenticate with Notifiarr.
     """
 
-    _implementation: str = "Notifiarr"
-    _remote_map: List[RemoteMapEntry] = [("api_key", "aPIKey", {"is_field": True})]
+    _implementation: ClassVar[str] = "Notifiarr"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [("api_key", "aPIKey", {"is_field": True})]

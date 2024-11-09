@@ -19,7 +19,7 @@ Nyaa indexer configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal, Optional
+from typing import ClassVar, List, Literal, Optional
 
 from buildarr.config import RemoteMapEntry
 from pydantic import AnyHttpUrl
@@ -48,8 +48,8 @@ class NyaaIndexer(TorrentIndexer):
     required/restricted rules about the subgroups to avoid foreign language releases.
     """
 
-    _implementation = "Nyaa"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Nyaa"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("base_url", "baseUrl", {"is_field": True}),
         (
             "additional_parameters",

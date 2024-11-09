@@ -20,7 +20,7 @@ Radarr import list configuration.
 from __future__ import annotations
 
 from logging import getLogger
-from typing import Any, Dict, Iterable, List, Literal, Mapping, Optional, Set, Union, cast
+from typing import Any, ClassVar, Dict, Iterable, List, Literal, Mapping, Optional, Set, Union, cast
 
 from buildarr.config import RemoteMapEntry
 from buildarr.state import state
@@ -154,8 +154,8 @@ class RadarrImportList(ImportList):
     (which is still valid as an alias), and added support for tag names.
     """
 
-    _implementation: str = "RadarrImport"
-    _remote_map: List[RemoteMapEntry] = []
+    _implementation: ClassVar[str] = "RadarrImport"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = []
 
     @classmethod
     def _get_base_remote_map(

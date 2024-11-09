@@ -20,7 +20,7 @@ Indexer settings configuration.
 from __future__ import annotations
 
 from logging import getLogger
-from typing import Dict, List, Union
+from typing import ClassVar, Dict, List, Union
 
 import radarr
 
@@ -44,7 +44,7 @@ from .usenet.newznab import NewznabIndexer
 logger = getLogger(__name__)
 
 INDEXER_TYPE_MAP = {
-    indexer_type._implementation: indexer_type  # type: ignore[attr-defined]
+    str(indexer_type._implementation): indexer_type  # type: ignore[attr-defined]
     for indexer_type in (
         FilelistIndexer,
         HdbitsIndexer,
@@ -148,7 +148,7 @@ class RadarrIndexersSettings(RadarrConfigBase):
     Set to `0` to disable syncing. **WARNING: This also disables automatic release grabbing.**
     """
 
-    delete_unmanaged: bool = False
+    delete_unmanaged: Annotated[bool, Field] = False
     """
     Automatically delete indexers not configured by Buildarr.
 
@@ -163,7 +163,7 @@ class RadarrIndexersSettings(RadarrConfigBase):
     Indexers to manage via Buildarr are defined here.
     """
 
-    _remote_map: List[RemoteMapEntry] = [
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("minimum_age", "minimumAge", {}),
         ("retention", "retention", {}),
         ("maximum_size", "maximumSize", {}),

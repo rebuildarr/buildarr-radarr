@@ -19,7 +19,7 @@ Aria2 download client configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal
+from typing import ClassVar, List, Literal
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import NonEmptyStr, Password, Port
@@ -60,8 +60,8 @@ class Aria2DownloadClient(TorrentDownloadClient):
     Secret token to use to authenticate with the download client.
     """
 
-    _implementation: str = "Aria2"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Aria2"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("hostname", "host", {"is_field": True}),
         ("port", "port", {"is_field": True}),
         ("use_ssl", "useSsl", {"is_field": True}),

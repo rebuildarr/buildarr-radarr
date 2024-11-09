@@ -20,7 +20,7 @@ Indexer configuration base class.
 from __future__ import annotations
 
 from logging import getLogger
-from typing import Any, Dict, List, Mapping, Optional, Set
+from typing import Any, ClassVar, Dict, List, Mapping, Optional, Set
 
 import radarr
 
@@ -85,8 +85,8 @@ class Indexer(RadarrConfigBase):
     If unset, monitor all releases using this indexer.
     """
 
-    _implementation: str
-    _remote_map: List[RemoteMapEntry] = []
+    _implementation: ClassVar[str]
+    _remote_map: ClassVar[List[RemoteMapEntry]] = []
 
     @validator("multi_languages")
     def validate_multi_languages(cls, value: Set[str]) -> Set[str]:

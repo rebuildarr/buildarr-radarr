@@ -19,7 +19,7 @@ Pneumatic (Kodi/XBMC) download client configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal
+from typing import ClassVar, List, Literal
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import NonEmptyStr
@@ -47,8 +47,8 @@ class PneumaticDownloadClient(UsenetDownloadClient):
     Folder from which `.strm` files will be imported by Drone.
     """
 
-    _implementation: str = "Pneumatic"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Pneumatic"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("nzb_folder", "nzbFolder", {"is_field": True}),
         ("strm_folder", "strmFolder", {"is_field": True}),
     ]

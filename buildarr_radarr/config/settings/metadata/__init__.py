@@ -19,7 +19,7 @@ Metadata settings configuration.
 
 from __future__ import annotations
 
-from typing import Dict, List
+from typing import ClassVar, Dict, List
 
 import radarr
 
@@ -36,7 +36,7 @@ from .roksbox import RoksboxMetadata
 from .wdtv import WdtvMetadata
 
 METADATA_TYPE_MAP = {
-    metadata_type._implementation: metadata_type  # type: ignore[attr-defined]
+    str(metadata_type._implementation): metadata_type  # type: ignore[attr-defined]
     for metadata_type in (EmbyLegacyMetadata, KodiEmbyMetadata, RoksboxMetadata, WdtvMetadata)
 }
 
@@ -58,7 +58,9 @@ class RadarrMetadataSettings(RadarrConfigBase):
     roksbox: RoksboxMetadata = RoksboxMetadata()
     wdtv: WdtvMetadata = WdtvMetadata()
 
-    _remote_map: List[RemoteMapEntry] = [("certification_country", "certificationCountry", {})]
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
+        ("certification_country", "certificationCountry", {}),
+    ]
 
     @classmethod
     def from_remote(cls, secrets: RadarrSecrets) -> Self:

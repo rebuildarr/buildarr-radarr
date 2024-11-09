@@ -20,7 +20,7 @@ Media management settings configuration.
 from __future__ import annotations
 
 from logging import getLogger
-from typing import Any, Dict, List, Optional, Set
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 import radarr
 
@@ -39,6 +39,7 @@ logger = getLogger(__name__)
 class ColonReplacement(BaseEnum):
     delete = "delete"
     dash = "dash"
+    smart = "smart"
     space_dash = "spaceDash"
     space_dash_space = "spaceDashSpace"
 
@@ -381,7 +382,7 @@ class RadarrMediaManagementSettings(RadarrConfigBase):
     Root folder settings should be defined here.
     """
 
-    _naming_remote_map: List[RemoteMapEntry] = [
+    _naming_remote_map: ClassVar[List[RemoteMapEntry]] = [
         # Episode Naming
         ("rename_movies", "renameMovies", {}),
         ("replace_illegal_characters", "replaceIllegalCharacters", {}),
@@ -389,7 +390,7 @@ class RadarrMediaManagementSettings(RadarrConfigBase):
         ("standard_movie_format", "standardMovieFormat", {}),
         ("movie_folder_format", "movieFolderFormat", {}),
     ]
-    _mediamanagement_remote_map: List[RemoteMapEntry] = [
+    _mediamanagement_remote_map: ClassVar[List[RemoteMapEntry]] = [
         # Folders
         ("create_missing_movie_folders", "createEmptyMovieFolders", {}),
         ("delete_empty_folders", "deleteEmptyFolders", {}),

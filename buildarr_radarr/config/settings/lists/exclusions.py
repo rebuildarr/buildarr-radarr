@@ -20,7 +20,7 @@ Import list exclusions settings configuration.
 from __future__ import annotations
 
 from logging import getLogger
-from typing import Dict, List, Set
+from typing import ClassVar, Dict, List, Set
 
 import radarr
 
@@ -48,7 +48,7 @@ class ListExclusion(RadarrConfigBase):
     year: PositiveInt
     """ """
 
-    _remote_map: List[RemoteMapEntry] = [
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("tmdb_id", "tmdbId", {}),
         ("title", "movieTitle", {}),
         ("year", "movieYear", {}),

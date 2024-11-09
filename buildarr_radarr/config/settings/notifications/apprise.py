@@ -19,7 +19,7 @@ Apprise notification connection configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal, Optional, Set
+from typing import ClassVar, List, Literal, Optional, Set
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import BaseEnum, NonEmptyStr
@@ -90,8 +90,8 @@ class AppriseNotification(Notification):
     Basic HTTP auth password for authenticating with Apprise, if required.
     """
 
-    _implementation: str = "Apprise"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Apprise"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("base_url", "serverUrl", {"is_field": True}),
         (
             "configuration_key",

@@ -19,7 +19,7 @@ Metadata configuration base class.
 
 from __future__ import annotations
 
-from typing import Any, Dict, List
+from typing import Any, ClassVar, Dict, List
 
 import radarr
 
@@ -39,9 +39,9 @@ class Metadata(RadarrConfigBase):
     When set to `true`, enables creating metadata files in this format.
     """
 
-    _implementation: str
-    _base_remote_map: List[RemoteMapEntry] = [("enable", "enable", {})]
-    _remote_map: List[RemoteMapEntry] = []
+    _implementation: ClassVar[str]
+    _base_remote_map: ClassVar[List[RemoteMapEntry]] = [("enable", "enable", {})]
+    _remote_map: ClassVar[List[RemoteMapEntry]] = []
 
     @classmethod
     def _get_remote_map(cls, api_schema: radarr.MetadataResource) -> List[RemoteMapEntry]:

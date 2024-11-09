@@ -20,7 +20,7 @@ Download client configuration base class.
 from __future__ import annotations
 
 from logging import getLogger
-from typing import Any, Dict, List, Mapping, Set
+from typing import Any, ClassVar, Dict, List, Mapping, Set
 
 import radarr
 
@@ -70,8 +70,8 @@ class DownloadClient(RadarrConfigBase):
     If no tags are assigned, all media can use the client.
     """
 
-    _implementation: str
-    _remote_map: List[RemoteMapEntry] = []
+    _implementation: ClassVar[str]
+    _remote_map: ClassVar[List[RemoteMapEntry]] = []
 
     @classmethod
     def _get_base_remote_map(cls, tag_ids: Mapping[str, int]) -> List[RemoteMapEntry]:

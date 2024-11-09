@@ -19,7 +19,7 @@ Roksbox metadata configuration.
 
 from __future__ import annotations
 
-from typing import List
+from typing import ClassVar, List
 
 from buildarr.config import RemoteMapEntry
 
@@ -39,8 +39,8 @@ class RoksboxMetadata(Metadata):
     Save movie images.
     """
 
-    _implementation: str = "RoksboxMetadata"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "RoksboxMetadata"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("movie_metadata", "movieMetadata", {"is_field": True}),
         ("movie_images", "movieImages", {"is_field": True}),
     ]

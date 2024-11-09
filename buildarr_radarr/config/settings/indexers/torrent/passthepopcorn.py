@@ -19,7 +19,7 @@ PassThePopcorn indexer configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal
+from typing import ClassVar, List, Literal
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import NonEmptyStr, Password
@@ -54,8 +54,8 @@ class PassthepopcornIndexer(TorrentIndexer):
     PassThePopcorn API key associated with the account.
     """
 
-    _implementation = "Nyaa"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Nyaa"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("base_url", "baseUrl", {"is_field": True}),
         ("api_user", "aPIUser", {"is_field": True}),
         ("api_key", "aPIKey", {"is_field": True}),

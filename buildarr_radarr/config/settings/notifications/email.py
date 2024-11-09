@@ -19,7 +19,7 @@ Email notification connection configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal
+from typing import ClassVar, List, Literal
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import NonEmptyStr, Password, Port
@@ -79,25 +79,28 @@ class EmailNotification(Notification):
     e.g. `Radarr <radarr@example.com>`.
     """
 
-    recipient_addresses: Annotated[List[NameEmail], Field(min_items=1, unique_items=True)]
+    recipient_addresses: Annotated[
+        List[NameEmail],
+        Field(min_items=1, json_schema_extra={"uniqueItems": True}),
+    ]
     """
     List of email addresses to directly address the mail to.
 
     At least one address must be provided.
     """
 
-    cc_addresses: Annotated[List[NameEmail], Field(unique_items=True)] = []
+    cc_addresses: Annotated[List[NameEmail], Field(json_schema_extra={"uniqueItems": True})] = []
     """
     Optional list of email addresses to copy (CC) the mail to.
     """
 
-    bcc_addresses: Annotated[List[NameEmail], Field(unique_items=True)] = []
+    bcc_addresses: Annotated[List[NameEmail], Field(json_schema_extra={"uniqueItems": True})] = []
     """
     Optional list of email addresses to blind copy (BCC) the mail to.
     """
 
-    _implementation: str = "Email"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Email"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("server", "server", {"is_field": True}),
         ("port", "port", {"is_field": True}),
         ("use_encryption", "requireEncryption", {"is_field": True}),

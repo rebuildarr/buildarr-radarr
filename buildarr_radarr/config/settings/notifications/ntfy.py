@@ -19,7 +19,7 @@ ntfy notification connection configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal, Optional, Set
+from typing import ClassVar, List, Literal, Optional, Set
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import BaseEnum, NonEmptyStr
@@ -97,8 +97,8 @@ class NtfyNotification(Notification):
     Optional link for when the user clicks the notification.
     """
 
-    _implementation: str = "Ntfy"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Ntfy"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         (
             "server_url",
             "serverUrl",

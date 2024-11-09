@@ -20,7 +20,7 @@ Custom script notification connection configuration.
 from __future__ import annotations
 
 from logging import getLogger
-from typing import List, Literal, Optional
+from typing import ClassVar, List, Literal, Optional
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import NonEmptyStr
@@ -50,5 +50,5 @@ class CustomScriptNotification(Notification):
     Arguments to pass to the script, if required.
     """
 
-    _implementation: str = "CustomScript"
-    _remote_map: List[RemoteMapEntry] = [("path", "path", {"is_field": True})]
+    _implementation: ClassVar[str] = "CustomScript"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [("path", "path", {"is_field": True})]

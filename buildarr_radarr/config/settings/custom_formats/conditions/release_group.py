@@ -19,7 +19,7 @@ Custom format condition for matching based on release group.
 
 from __future__ import annotations
 
-from typing import List, Literal
+from typing import ClassVar, List, Literal
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import NonEmptyStr
@@ -42,8 +42,8 @@ class ReleaseGroupCondition(Condition):
     Regular expression matching is case-insensitive.
     """
 
-    _implementation: Literal["ReleaseGroupSpecification"] = "ReleaseGroupSpecification"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[Literal["ReleaseGroupSpecification"]] = "ReleaseGroupSpecification"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         (
             "regex",
             "value",

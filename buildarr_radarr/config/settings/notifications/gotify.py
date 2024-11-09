@@ -19,7 +19,7 @@ Gotify notification connection configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal
+from typing import ClassVar, List, Literal
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import BaseEnum, Password
@@ -76,8 +76,8 @@ class GotifyNotification(Notification):
     Include movie posters of the relevant media in messages.
     """
 
-    _implementation: str = "Gotify"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Gotify"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("base_url", "server", {"is_field": True}),
         ("app_token", "appToken", {"is_field": True}),
         ("priority", "priority", {"is_field": True}),

@@ -19,7 +19,7 @@ Download Station torrent download client configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal, Optional
+from typing import ClassVar, List, Literal, Optional
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import NonEmptyStr, Password, Port
@@ -76,8 +76,8 @@ class DownloadstationTorrentDownloadClient(TorrentDownloadClient):
     Leave blank, set to `null` or undefined to use the default download client location.
     """
 
-    _implementation: str = "TorrentDownloadStation"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "TorrentDownloadStation"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("hostname", "host", {"is_field": True}),
         ("port", "port", {"is_field": True}),
         ("use_ssl", "useSsl", {"is_field": True}),

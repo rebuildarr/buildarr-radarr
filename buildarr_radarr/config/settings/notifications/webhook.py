@@ -19,7 +19,7 @@ Webhook notification connection configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal, Optional
+from typing import ClassVar, List, Literal, Optional
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import BaseEnum
@@ -72,8 +72,8 @@ class WebhookNotification(Notification):
     Webhook API password, if required.
     """
 
-    _implementation: str = "Webhook"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Webhook"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("url", "url", {"is_field": True}),
         ("method", "method", {"is_field": True}),
         (

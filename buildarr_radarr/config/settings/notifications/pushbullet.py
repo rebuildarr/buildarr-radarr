@@ -19,7 +19,7 @@ Pushbullet notification connection configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal, Optional, Set
+from typing import ClassVar, List, Literal, Optional, Set
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import NonEmptyStr, Password
@@ -62,8 +62,8 @@ class PushbulletNotification(Notification):
     Leave unset, blank or set to `null` to send from yourself.
     """
 
-    _implementation: str = "PushBullet"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "PushBullet"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("api_key", "apiKey", {"is_field": True}),
         ("device_ids", "deviceIds", {"is_field": True, "encoder": lambda v: sorted(v)}),
         ("channel_tags", "channelTags", {"is_field": True, "encoder": lambda v: sorted(v)}),

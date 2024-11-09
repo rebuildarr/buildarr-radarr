@@ -84,7 +84,7 @@ NotificationType = Union[
 ]
 
 NOTIFICATION_TYPE_MAP = {
-    notification_type._implementation: notification_type  # type: ignore[attr-defined]
+    str(notification_type._implementation): notification_type  # type: ignore[attr-defined]
     for notification_type in (
         AppriseNotification,
         BoxcarNotification,
@@ -116,7 +116,7 @@ NOTIFICATION_TYPE_MAP = {
 class RadarrNotificationsSettings(RadarrConfigBase):
     # Notification connection settings configuration.
 
-    delete_unmanaged: bool = False
+    delete_unmanaged: Annotated[bool, Field] = False
     """
     Automatically delete connections not configured in Buildarr.
 

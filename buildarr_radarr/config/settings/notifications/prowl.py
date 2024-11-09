@@ -19,7 +19,7 @@ Prowl notification connection configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal
+from typing import ClassVar, List, Literal
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import BaseEnum, Password
@@ -67,8 +67,8 @@ class ProwlNotification(Notification):
     * `emergency`
     """
 
-    _implementation: str = "Prowl"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Prowl"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("api_key", "apiKey", {"is_field": True}),
         ("priority", "priority", {"is_field": True}),
     ]

@@ -19,7 +19,7 @@ Vuze download client configuration.
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import ClassVar, Literal
 
 from .transmission import TransmissionDownloadClientBase
 
@@ -32,4 +32,4 @@ class VuzeDownloadClient(TransmissionDownloadClientBase):
     Type value associated with this kind of download client.
     """
 
-    _implementation: str = "Vuze"
+    _implementation: ClassVar[str] = "Vuze"

@@ -19,7 +19,7 @@ Custom format condition for matching based on quality modifiers.
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Literal, cast
+from typing import Any, ClassVar, Dict, List, Literal, cast
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import UpperCaseNonEmptyStr
@@ -59,7 +59,9 @@ class QualityModifierCondition(Condition):
     # preset: Optional[str] = None
     # """Template preset from the Radarr API."""
 
-    _implementation: Literal["QualityModifierSpecification"] = "QualityModifierSpecification"
+    _implementation: ClassVar[
+        Literal["QualityModifierSpecification"]
+    ] = "QualityModifierSpecification"
 
     @classmethod
     def _get_remote_map(cls, api_schema_dict: Dict[str, Any]) -> List[RemoteMapEntry]:

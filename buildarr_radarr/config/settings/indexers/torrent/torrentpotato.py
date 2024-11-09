@@ -19,7 +19,7 @@ TorrentPotato indexer configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal
+from typing import ClassVar, List, Literal
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import NonEmptyStr, Password
@@ -51,8 +51,8 @@ class TorrentpotatoIndexer(TorrentIndexer):
     Password for the TorrentPotato indexer user.
     """
 
-    _implementation = "Nyaa"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Nyaa"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("base_url", "baseUrl", {"is_field": True}),
         ("username", "user", {"is_field": True}),
         ("passkey", "passkey", {"is_field": True}),

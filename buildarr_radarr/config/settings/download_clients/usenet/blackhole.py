@@ -19,7 +19,7 @@ Usenet Blackhole download client configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal
+from typing import ClassVar, List, Literal
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import NonEmptyStr
@@ -45,8 +45,8 @@ class UsenetBlackholeDownloadClient(UsenetDownloadClient):
     Folder from which Radarr should import completed downloads.
     """
 
-    _implementation: str = "UsenetBlackhole"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "UsenetBlackhole"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("nzb_folder", "nzbFolder", {"is_field": True}),
         ("watch_folder", "watchFolder", {"is_field": True}),
     ]

@@ -19,7 +19,7 @@ Emby (Legacy) metadata configuration.
 
 from __future__ import annotations
 
-from typing import List
+from typing import ClassVar, List
 
 from buildarr.config import RemoteMapEntry
 
@@ -34,5 +34,7 @@ class EmbyLegacyMetadata(Metadata):
     Create metadata file.
     """
 
-    _implementation: str = "MediaBrowserMetadata"
-    _remote_map: List[RemoteMapEntry] = [("movie_metadata", "movieMetadata", {"is_field": True})]
+    _implementation: ClassVar[str] = "MediaBrowserMetadata"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
+        ("movie_metadata", "movieMetadata", {"is_field": True}),
+    ]

@@ -19,12 +19,13 @@ Pushsafer notification connection configuration.
 
 from __future__ import annotations
 
-from typing import Any, List, Literal, Mapping, Optional, Set, Union
+from typing import Any, ClassVar, List, Literal, Mapping, Optional, Set, Union
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import BaseEnum, NonEmptyStr, Password
-from pydantic import ConstrainedInt, Field, validator
+from pydantic import Field, validator
 from pydantic.color import Color
+from typing_extensions import Annotated
 
 from .base import Notification
 
@@ -37,8 +38,7 @@ class PushsaferPriority(BaseEnum):
     emergency = 2
 
 
-class PushsaferRetry(ConstrainedInt):
-    ge = 60
+PushsaferRetry = Annotated[int, Field(ge=60)]
 
 
 class PushsaferNotification(Notification):
@@ -131,8 +131,8 @@ class PushsaferNotification(Notification):
             )
         return value
 
-    _implementation: str = "Pushsafer"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Pushsafer"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("api_key", "apiKey", {"is_field": True}),
         ("device_ids", "deviceIds", {"is_field": True, "encoder": lambda v: sorted(v)}),
         ("priority", "priority", {"is_field": True}),

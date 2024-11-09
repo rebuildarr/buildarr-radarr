@@ -19,7 +19,7 @@ Slack notification connection configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal, Optional
+from typing import ClassVar, List, Literal, Optional
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import NonEmptyStr
@@ -60,8 +60,8 @@ class SlackNotification(Notification):
     If set, overrides the default channel in the webhook.
     """
 
-    _implementation: str = "Slack"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Slack"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("webhook_url", "webHookUrl", {"is_field": True}),
         ("username", "username", {"is_field": True}),
         (

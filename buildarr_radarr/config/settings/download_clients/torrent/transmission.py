@@ -19,7 +19,7 @@ Transmission download client configuration.
 
 from __future__ import annotations
 
-from typing import Any, List, Literal, Mapping, Optional
+from typing import Any, ClassVar, List, Literal, Mapping, Optional
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import BaseEnum, NonEmptyStr, Port
@@ -109,7 +109,7 @@ class TransmissionDownloadClientBase(TorrentDownloadClient):
     Add media to the download client in the Paused state.
     """
 
-    _remote_map: List[RemoteMapEntry] = [
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("hostname", "host", {"is_field": True}),
         ("port", "port", {"is_field": True}),
         ("use_ssl", "useSsl", {"is_field": True}),
@@ -159,4 +159,4 @@ class TransmissionDownloadClient(TransmissionDownloadClientBase):
     Type value associated with this kind of download client.
     """
 
-    _implementation: str = "Transmission"
+    _implementation: ClassVar[str] = "Transmission"

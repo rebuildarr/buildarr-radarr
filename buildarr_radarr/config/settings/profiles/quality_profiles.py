@@ -584,7 +584,7 @@ class RadarrQualityProfilesSettings(RadarrConfigBase):
     where the name of the definition becomes the name of the quality profile in Radarr.
     """
 
-    delete_unmanaged: bool = False
+    delete_unmanaged: Annotated[bool, Field] = False
     """
     Automatically delete quality profiles not defined in Buildarr.
 

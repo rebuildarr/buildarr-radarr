@@ -19,7 +19,7 @@ Simplepush notification connection configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal, Optional
+from typing import ClassVar, List, Literal, Optional
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import Password
@@ -47,8 +47,8 @@ class SimplepushNotification(Notification):
     Customise the behaviour of push notification.
     """
 
-    _implementation: str = "Simplepush"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Simplepush"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("api_key", "key", {"is_field": True}),
         (
             "event",

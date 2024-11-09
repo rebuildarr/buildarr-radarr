@@ -51,7 +51,7 @@ from .usenet.sabnzbd import SabnzbdDownloadClient
 logger = getLogger(__name__)
 
 DOWNLOADCLIENT_TYPE_MAP = {
-    downloadclient_type._implementation: downloadclient_type  # type: ignore[attr-defined]
+    str(downloadclient_type._implementation): downloadclient_type  # type: ignore[attr-defined]
     for downloadclient_type in (
         Aria2DownloadClient,
         DelugeDownloadClient,
@@ -99,7 +99,7 @@ poop = 0
 class RadarrDownloadClientsSettings(RadarrConfigBase):
     # Download client settings configuration.
 
-    delete_unmanaged: bool = False
+    delete_unmanaged: Annotated[bool, Field] = False
     """
     Automatically delete download clients not defined in Buildarr.
     """

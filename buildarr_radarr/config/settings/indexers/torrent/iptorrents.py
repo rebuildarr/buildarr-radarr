@@ -19,7 +19,7 @@ IP Torrents native API indexer configuration.
 
 from __future__ import annotations
 
-from typing import List, Literal
+from typing import ClassVar, List, Literal
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import RssUrl
@@ -41,5 +41,5 @@ class IptorrentsIndexer(TorrentIndexer):
     you selected (HD, SD, x264, etc ...).
     """
 
-    _implementation = "IPTorrents"
-    _remote_map: List[RemoteMapEntry] = [("feed_url", "baseUrl", {"is_field": True})]
+    _implementation: ClassVar[str] = "IPTorrents"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [("feed_url", "baseUrl", {"is_field": True})]

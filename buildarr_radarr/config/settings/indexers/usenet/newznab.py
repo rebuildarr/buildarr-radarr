@@ -19,7 +19,7 @@ Newznab indexer configuration.
 
 from __future__ import annotations
 
-from typing import Iterable, List, Literal, Optional, Set, Union
+from typing import ClassVar, Iterable, List, Literal, Optional, Set, Union
 
 from buildarr.config import RemoteMapEntry
 from buildarr.types import NonEmptyStr, Password
@@ -96,8 +96,8 @@ class NewznabIndexer(UsenetIndexer):
 
     # TODO: Add support for presets.
 
-    _implementation = "Newznab"
-    _remote_map: List[RemoteMapEntry] = [
+    _implementation: ClassVar[str] = "Newznab"
+    _remote_map: ClassVar[List[RemoteMapEntry]] = [
         ("base_url", "baseUrl", {"is_field": True}),
         ("api_path", "apiPath", {"is_field": True}),
         ("api_key", "apiKey", {"is_field": True}),

@@ -20,7 +20,7 @@ Import list settings configuration.
 from __future__ import annotations
 
 from logging import getLogger
-from typing import Any, Dict, Iterable, List, Mapping, Set
+from typing import Any, ClassVar, Dict, Iterable, List, Mapping, Set
 
 import radarr
 
@@ -102,8 +102,8 @@ class ImportList(RadarrConfigBase):
     Tags to assign to items imported from this import list.
     """
 
-    _implementation: str
-    _remote_map: List[RemoteMapEntry]
+    _implementation: ClassVar[str]
+    _remote_map: ClassVar[List[RemoteMapEntry]]
 
     @classmethod
     def _get_base_remote_map(

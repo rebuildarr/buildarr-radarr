@@ -61,7 +61,7 @@ ConditionType = Union[
 ]
 
 CONDITION_TYPE_MAP = {
-    str(condition_type._implementation): condition_type  # type: ignore[attr-defined]
+    condition_type._implementation: condition_type  # type: ignore[attr-defined]
     for condition_type in (
         EditionCondition,
         IndexerFlagCondition,

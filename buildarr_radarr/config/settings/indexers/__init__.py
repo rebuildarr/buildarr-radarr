@@ -44,7 +44,7 @@ from .usenet.newznab import NewznabIndexer
 logger = getLogger(__name__)
 
 INDEXER_TYPE_MAP = {
-    str(indexer_type._implementation): indexer_type  # type: ignore[attr-defined]
+    indexer_type._implementation: indexer_type  # type: ignore[attr-defined]
     for indexer_type in (
         FilelistIndexer,
         HdbitsIndexer,

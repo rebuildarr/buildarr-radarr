@@ -43,7 +43,7 @@ from .trakt.user import TraktUserImportList
 logger = getLogger(__name__)
 
 IMPORTLIST_TYPE_MAP = {
-    str(importlist_type._implementation): importlist_type  # type: ignore[attr-defined]
+    importlist_type._implementation: importlist_type  # type: ignore[attr-defined]
     for importlist_type in (
         CouchpotatoImportList,
         RadarrImportList,

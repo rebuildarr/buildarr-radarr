@@ -84,7 +84,7 @@ NotificationType = Union[
 ]
 
 NOTIFICATION_TYPE_MAP = {
-    str(notification_type._implementation): notification_type  # type: ignore[attr-defined]
+    notification_type._implementation: notification_type  # type: ignore[attr-defined]
     for notification_type in (
         AppriseNotification,
         BoxcarNotification,

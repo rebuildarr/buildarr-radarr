@@ -24,7 +24,7 @@ from typing import Any, ClassVar, Dict, Iterable, List, Literal, Mapping, Option
 
 from buildarr.config import RemoteMapEntry
 from buildarr.state import state
-from buildarr.types import InstanceName, NonEmptyStr
+from buildarr.types import InstanceReference, NonEmptyStr
 from pydantic import AnyHttpUrl, Field, PositiveInt, SecretStr, validator
 from typing_extensions import Self
 
@@ -106,7 +106,7 @@ class RadarrImportList(ImportList):
     Type value associated with this kind of import list.
     """
 
-    instance_name: Optional[InstanceName] = Field(None, plugin="radarr")
+    instance_name: Optional[InstanceReference] = Field(None, plugin="radarr")
     """
     The name of the Radarr instance within Buildarr, if linking this Radarr instance
     with another Buildarr-defined Radarr instance.

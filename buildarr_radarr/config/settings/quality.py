@@ -36,8 +36,8 @@ from ...secrets import RadarrSecrets
 from ..types import RadarrConfigBase
 
 QUALITYDEFINITION_MIN_MAX = 398
-QUALITYDEFINITION_PREFERRED_MAX = 399
-QUALITYDEFINITION_MAX = 400
+QUALITYDEFINITION_PREFERRED_MAX = 2000
+QUALITYDEFINITION_MAX = 2000
 
 
 class QualityDefinition(RadarrConfigBase):

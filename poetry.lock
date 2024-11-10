@@ -85,14 +85,12 @@ uvloop = ["uvloop (>=0.15.2)"]
 
 [[package]]
 name = "buildarr"
-version = "0.8.0b1"
+version = "0.1.dev116+gd2a43d6"
 description = "Constructs and configures Arr PVR stacks"
 optional = false
 python-versions = ">=3.8"
-files = [
-    {file = "buildarr-0.8.0b1-py3-none-any.whl", hash = "sha256:7fa1373cd678b8e3650a20edb27c9a6b736986f25ad27888787758fdff2d9afb"},
-    {file = "buildarr-0.8.0b1.tar.gz", hash = "sha256:8d47a9afeed44b914b6b206af8e43d4a2be4c5f683bb97e9a34e384ca792e9ee"},
-]
+files = []
+develop = false
 
 [package.dependencies]
 aenum = "*"
@@ -105,6 +103,12 @@ schedule = ">=1.1.0"
 stevedore = ">=4.0.0"
 typing-extensions = ">=4.0.1"
 watchdog = ">=3.0.0"
+
+[package.source]
+type = "git"
+url = "https://github.com/alikhil/buildarr.git"
+reference = "dev"
+resolved_reference = "d2a43d691c8ad654fcd14abec9343c9923450b25"
 
 [[package]]
 name = "certifi"
@@ -1143,4 +1147,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "0684cbeecf1b1483c1cd50941abefeb1942c098318c88474a8aefb07534e59c7"
+content-hash = "18a834ef7dac2587c6490c70876b121643e786e54d993e3c14481250184a09c1"

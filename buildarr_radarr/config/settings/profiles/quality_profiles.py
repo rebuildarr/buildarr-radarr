@@ -630,7 +630,7 @@ class RadarrQualityProfilesSettings(RadarrConfigBase):
                 api_qualitydefinition.title: api_qualitydefinition.quality
                 for api_qualitydefinition in sorted(
                     radarr.QualityDefinitionApi(api_client).list_quality_definition(),
-                    key=lambda q: q["weight"],
+                    key=lambda q: q.weight
                     reverse=True,
                 )
             }

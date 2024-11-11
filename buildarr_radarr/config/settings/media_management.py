@@ -127,7 +127,7 @@ class RootFoldersSettings(RadarrConfigBase):
                 api_rootfolder.path for api_rootfolder in rootfolder_api.list_root_folder()
             ]
             return cls(
-                definitions=Set[NonEmptyStr](rootfolders),
+                definitions=set(rootfolders),
             )
 
     def update_remote(

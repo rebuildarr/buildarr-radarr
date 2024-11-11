@@ -125,6 +125,14 @@ class QualityProfile(RadarrConfigBase):
     This must be greater than or equal to `minimum_custom_format_score`.
     """
 
+    minimum_custom_format_score_increment: Annotated[int, Field(ge=1)] = 1
+    """
+    Minimum required improvement of the custom format score between
+    existing and new releases before Radarr considers it an upgrade.
+
+    Must be greater than or equal to 1.
+    """
+
     custom_formats: List[CustomFormatScore] = []
     """
     Map scores for each custom format applicable to a quality profile here.
@@ -281,6 +289,7 @@ class QualityProfile(RadarrConfigBase):
             ),
             ("minimum_custom_format_score", "minFormatScore", {}),
             ("upgrade_until_custom_format_score", "cutoffFormatScore", {}),
+            ("minimum_custom_format_score_increment", "minUpgradeFormatScore", {}),
             # TODO: Error handler for defined custom formats that don't exist.
             (
                 "custom_formats",

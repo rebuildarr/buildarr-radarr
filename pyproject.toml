@@ -40,7 +40,7 @@ packages = [{include = "buildarr_radarr"}]
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
 radarr-py = ">=1.1.1,<2.0.0"
-buildarr = ">=0.8.0b,<0.9.0"
+buildarr = { git = "https://github.com/rebuildarr/buildarr.git", branch = "main" }
 packaging = "*"
 
 [tool.poetry.group.dev.dependencies]
